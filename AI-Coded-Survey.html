@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey Form</title>
+  <style>
+    body {
+      /* Matching the teal background color */
+      background-color: #a9d7d1; 
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 30px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      border-radius: 4px;
+    }
+
+    .description {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 16px;
+    }
+
+    .form-row {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    /* Left side for labels */
+    .label-col {
+      flex: 0 0 45%;
+      text-align: right;
+      padding-right: 15px;
+      box-sizing: border-box;
+      line-height: 1.4;
+      padding-top: 5px; /* Aligns text perfectly with inputs */
+    }
+
+    /* Right side for inputs */
+    .input-col {
+      flex: 0 0 55%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .text-input, select {
+      width: 250px;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    /* Smaller width for select dropdowns to match image */
+    select {
+      width: 160px;
+    }
+
+    .radio-label, .checkbox-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    .radio-label input, .checkbox-label input {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Survey Form</h1>
+
+  <div class="form-container">
+    <p class="description">Let us know how we can improve freeCodeCamp</p>
+    
+    <form>
+      <!-- Name Field -->
+      <div class="form-row">
+        <div class="label-col">
+          <label for="name">* Name:</label>
+        </div>
+        <div class="input-col">
+          <input type="text" id="name" class="text-input" placeholder="Enter your name" required>
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-row">
+        <div class="label-col">
+          <label for="email">* Email:</label>
+        </div>
+        <div class="input-col">
+          <input type="email" id="email" class="text-input" placeholder="Enter your Email" required>
+        </div>
+      </div>
+
+      <!-- Age Field -->
+      <div class="form-row">
+        <div class="label-col">
+          <label for="age">* Age:</label>
+        </div>
+        <div class="input-col">
+          <input type="number" id="age" class="text-input" placeholder="Age" required>
+        </div>
+      </div>
+
+      <!-- Current Role Dropdown -->
+      <div class="form-row">
+        <div class="label-col">
+          <label for="role">Which option best describes your current role?</label>
+        </div>
+        <div class="input-col">
+          <select id="role">
+            <option>Student</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Recommendation Radio Buttons -->
+      <div class="form-row">
+        <div class="label-col">
+          <label>* How likely is that you would recommend<br>freeCodeCamp to a friend?</label>
+        </div>
+        <div class="input-col">
+          <label class="radio-label"><input type="radio" name="recommend" value="definitely"> Definitely</label>
+          <label class="radio-label"><input type="radio" name="recommend" value="maybe"> Maybe</label>
+          <label class="radio-label"><input type="radio" name="recommend" value="not-sure"> Not sure</label>
+        </div>
+      </div>
+
+      <!-- Most Like Dropdown -->
+      <div class="form-row">
+        <div class="label-col">
+          <label for="like">What do you like most in FCC:</label>
+        </div>
+        <div class="input-col">
+          <select id="like">
+            <option>Select an option</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Improvements Checkboxes -->
+      <div class="form-row">
+        <div class="label-col">
+          <label>Things that should be improved in the future<br>(Check all that apply):</label>
+        </div>
+        <div class="input-col">
+          <label class="checkbox-label"><input type="checkbox" name="improve" value="frontend"> Front-end Projects</label>
+          <label class="checkbox-label"><input type="checkbox" name="improve" value="backend"> Back-end Projects</label>
+          <label class="checkbox-label"><input type="checkbox" name="improve" value="datavis"> Data Visualization</label>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
