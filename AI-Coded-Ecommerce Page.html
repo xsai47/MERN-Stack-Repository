@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Timeless Watches – Elegant Luxury Watch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1a2235;
+      --navy2:  #263450;
+      --orange: #e07820;
+      --text:   #1a1a1a;
+      --muted:  #6b7280;
+      --white:  #ffffff;
+      --border: #e2e2e2;
+      --star:   #f5a623;
+      --bg:     #f4f4f4;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #e8e8e8;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── PAGE FRAME ── */
+    .page-frame {
+      max-width: 1080px;
+      margin: 28px auto;
+      background: var(--white);
+      border: 2.5px solid var(--orange);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.15);
+    }
+
+    /* ── TOP STRIP ── */
+    .top-strip { height: 5px; background: linear-gradient(90deg,#e07820,#f59340); }
+
+    /* ── NAVBAR ── */
+    nav {
+      background: var(--navy);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      height: 58px;
+    }
+    .nav-brand {
+      font-weight: 700; font-size: 14.5px; color: #fff;
+      letter-spacing: .07em; white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-search { flex: 1; display: flex; max-width: 520px; }
+    .nav-search input {
+      width: 100%; padding: 7px 14px; border: none;
+      border-radius: 4px 0 0 4px; font-size: 13px;
+      font-family: inherit; outline: none;
+    }
+    .nav-search button {
+      padding: 7px 14px; background: #2e3a52; border: none;
+      border-radius: 0 4px 4px 0; cursor: pointer; color: #bbb; font-size: 14px;
+    }
+    .nav-links { display: flex; gap: 20px; flex-shrink: 0; margin-left: auto; align-items: center; }
+    .nav-links a { color: #c8cedd; text-decoration: none; font-size: 13px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+
+    /* hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; margin-left: auto; background: none; border: none; padding: 6px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; }
+    .mobile-menu { display: none; flex-direction: column; background: var(--navy2); padding: 10px 20px 14px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: #c8cedd; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── PRODUCT LAYOUT ── */
+    .product-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      background: var(--bg);
+      padding: 28px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── GALLERY ── */
+    .gallery { display: flex; flex-direction: column; gap: 12px; }
+
+    .main-image-wrap {
+      width: 100%; aspect-ratio: 4/3.1;
+      border-radius: 12px; overflow: hidden;
+      background: #c8c0b0; position: relative; cursor: zoom-in;
+    }
+    .main-image-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .5s ease, opacity .25s ease;
+    }
+    .main-image-wrap:hover img { transform: scale(1.05); }
+    .main-image-wrap img.fade { opacity: 0; transform: scale(1.02); }
+
+    .img-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--orange); color: #fff;
+      font-size: 10px; font-weight: 700; letter-spacing: .07em;
+      padding: 4px 10px; border-radius: 20px; pointer-events: none;
+    }
+
+    .thumbnails { display: grid; grid-template-columns: repeat(6,1fr); gap: 8px; }
+
+    .thumb {
+      aspect-ratio: 1; border-radius: 8px; overflow: hidden;
+      border: 2.5px solid transparent; cursor: pointer; background: #bbb;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .thumb:hover { border-color: var(--orange); transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+    .thumb.active { border-color: var(--navy); box-shadow: 0 3px 12px rgba(26,34,53,0.25); }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+    .thumb:hover img { transform: scale(1.1); }
+
+    /* ── PRODUCT INFO ── */
+    .product-info {
+      background: var(--white); border-radius: 12px; padding: 28px 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08); display: flex; flex-direction: column;
+    }
+    .brand-tag { font-size: 10.5px; font-weight: 700; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+    .product-title { font-family: 'Playfair Display', serif; font-size: clamp(22px,2.6vw,30px); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 14px; }
+
+    .price-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+    .price-current { font-size: 22px; font-weight: 700; }
+    .price-original { font-size: 14px; color: var(--muted); text-decoration: line-through; }
+    .badge-discount { background: #fff3e0; color: var(--orange); font-size: 11.5px; font-weight: 700; padding: 3px 9px; border-radius: 5px; }
+
+    .product-desc { font-size: 13.5px; color: #555; line-height: 1.75; margin-bottom: 16px; }
+
+    .rating-row { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+    .stars { color: var(--star); font-size: 16px; letter-spacing: 2px; }
+    .rating-text { font-size: 12px; color: var(--muted); }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0 0 18px; }
+
+    .qty-label { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .qty-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .qty-btn {
+      width: 36px; height: 36px; background: var(--navy); color: #fff; border: none;
+      border-radius: 8px; font-size: 20px; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; font-weight: 600;
+      transition: background .2s, transform .1s; flex-shrink: 0;
+    }
+    .qty-btn:hover { background: var(--navy2); }
+    .qty-btn:active { transform: scale(.92); }
+    .qty-input {
+      width: 52px; height: 36px; text-align: center;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 15px; font-family: inherit; font-weight: 700; color: var(--text); outline: none;
+      -moz-appearance: textfield;
+    }
+    .qty-input::-webkit-inner-spin-button,
+    .qty-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .qty-input:focus { border-color: var(--navy); }
+
+    .btn-add {
+      width: 100%; padding: 15px; background: var(--navy); color: #fff; border: none;
+      border-radius: 10px; font-family: inherit; font-size: 15px; font-weight: 600;
+      letter-spacing: .05em; cursor: pointer; margin-bottom: 18px;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(26,34,53,.25);
+    }
+    .btn-add:hover { background: var(--navy2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,34,53,.3); }
+    .btn-add:active { transform: translateY(0); }
+
+    .offer-box { border: 1.5px solid var(--border); border-radius: 10px; padding: 18px 18px 20px; text-align: center; background: #fafafa; }
+    .offer-title { font-size: 14px; font-weight: 700; margin-bottom: 7px; }
+    .offer-desc { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+    .btn-signup {
+      padding: 9px 24px; background: var(--navy); color: #fff; border: none;
+      border-radius: 7px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .btn-signup:hover { background: var(--navy2); transform: translateY(-1px); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 28px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--navy); color: #fff;
+      padding: 13px 26px; border-radius: 40px;
+      font-size: 13.5px; font-weight: 500;
+      box-shadow: 0 8px 30px rgba(0,0,0,.25);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+      opacity: 0; z-index: 999; white-space: nowrap; pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* ── RESPONSIVE: TABLET ── */
+    @media (max-width: 860px) {
+      .page-frame { margin: 16px; }
+      .product-layout { grid-template-columns: 1fr; padding: 20px; gap: 20px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-search { max-width: 260px; }
+    }
+
+    /* ── RESPONSIVE: MOBILE ── */
+    @media (max-width: 520px) {
+      .page-frame { margin: 8px; }
+      nav { padding: 0 14px; height: 52px; }
+      .nav-brand { font-size: 12px; letter-spacing: .04em; }
+      .nav-search { display: none; }
+      .product-layout { padding: 12px; gap: 12px; }
+      .product-info { padding: 18px 14px; }
+      .thumbnails { gap: 5px; }
+      .btn-add { padding: 13px; font-size: 14px; }
+    }
+
+    /* ── RESPONSIVE: TINY ── */
+    @media (max-width: 360px) {
+      .thumbnails { grid-template-columns: repeat(3,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-frame">
+  <div class="top-strip"></div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-brand">TIMELESS WATCHES</div>
+    <div class="nav-search">
+      <input type="text" placeholder="Search..."/>
+      <button>&#128269;</button>
+    </div>
+    <div class="nav-links">
+      <a href="#">Shop</a>
+      <a href="#">New Arrivals</a>
+      <a href="#">Brands</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+    <button class="hamburger" id="menuBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#">Shop</a>
+    <a href="#">New Arrivals</a>
+    <a href="#">Brands</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <!-- PRODUCT -->
+  <div class="product-layout">
+
+    <!-- GALLERY -->
+    <div class="gallery">
+      <div class="main-image-wrap">
+        <span class="img-badge">NEW ARRIVAL</span>
+        <img id="mainImg" src="" alt="Elegant Luxury Watch"/>
+      </div>
+      <div class="thumbnails" id="thumbs"></div>
+    </div>
+
+    <!-- INFO -->
+    <div class="product-info">
+      <div class="brand-tag">Prestige Time Co.</div>
+      <h1 class="product-title">Elegant Luxury Watch</h1>
+      <div class="price-row">
+        <span class="price-current">$499.99</span>
+        <span class="price-original">$799.99</span>
+        <span class="badge-discount">38% OFF</span>
+      </div>
+      <p class="product-desc">
+        This luxurious timepiece combines elegance with precision craftsmanship.
+        Perfect for formal occasions or everyday wear, it features premium
+        materials and impeccable design.
+      </p>
+      <div class="rating-row">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="rating-text">Rated 4.8/5 (256 reviews)</span>
+      </div>
+      <hr class="divider"/>
+      <div class="qty-label">Quantity</div>
+      <div class="qty-row">
+        <button class="qty-btn" onclick="changeQty(-1)">&#8722;</button>
+        <input class="qty-input" type="number" id="qty" value="1" min="1" max="99" readonly/>
+        <button class="qty-btn" onclick="changeQty(1)">&#43;</button>
+      </div>
+      <button class="btn-add" onclick="addToBag()">Add to Bag</button>
+      <div class="offer-box">
+        <div class="offer-title">&#127381; Limited-Time Offer!</div>
+        <p class="offer-desc">
+          Get an additional 10% off your first purchase when you sign up for our newsletter.
+        </p>
+        <button class="btn-signup">Sign Up Now</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ─────────────────────────────────────────────────
+     WATCH IMAGES
+     Using picsum.photos with specific seeds that give
+     watch/jewellery-looking photos — always loads reliably.
+     Also set a direct Unsplash URL as primary and picsum as fallback.
+  ───────────────────────────────────────────────── */
+  const watches = [
+    {
+      full:  "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?auto=format&fit=crop&w=800&q=80",
+      thumb: "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?auto=format&fit=crop&w=160&q=70",
+      alt:   "Front view – rose gold chronograph"
+    },
+    {
+      full:  "https://images.unsplash.com/photo-1548171915-e79a380a2a4b?auto=format&fit=crop&w=800&q=80",
+      thumb: "https://images.unsplash.com/photo-1548171915-e79a380a2a4b?auto=format&fit=crop&w=160&q=70",
+      alt:   "Side profile on wrist"
+    },
+    {
+      full:  "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=800&q=80",
+      thumb: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=160&q=70",
+      alt:   "Dial close-up"
+    },
+    {
+      full:  "https://images.unsplash.com/photo-1594534475808-b18fc33b045e?auto=format&fit=crop&w=800&q=80",
+      thumb: "https://images.unsplash.com/photo-1594534475808-b18fc33b045e?auto=format&fit=crop&w=160&q=70",
+      alt:   "Rubber strap detail"
+    },
+    {
+      full:  "https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=800&q=80",
+      thumb: "https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=160&q=70",
+      alt:   "Caseback engraving"
+    },
+    {
+      full:  "https://images.unsplash.com/photo-1506015391300-4802dc74de2a?auto=format&fit=crop&w=800&q=80",
+      thumb: "https://images.unsplash.com/photo-1506015391300-4802dc74de2a?auto=format&fit=crop&w=160&q=70",
+      alt:   "Lifestyle flat lay"
+    }
+  ];
+
+  /* picsum fallbacks (watch/accessory-ish seeds) */
+  const fallbacks = [
+    "https://picsum.photos/seed/watch1/800/620",
+    "https://picsum.photos/seed/watch2/800/620",
+    "https://picsum.photos/seed/watch3/800/620",
+    "https://picsum.photos/seed/watch4/800/620",
+    "https://picsum.photos/seed/watch5/800/620",
+    "https://picsum.photos/seed/watch6/800/620",
+  ];
+  const fallbacksTh = fallbacks.map(u => u.replace("800/620","160/160"));
+
+  /* ── build thumbnails ── */
+  const thumbsEl = document.getElementById("thumbs");
+  watches.forEach((w, i) => {
+    const div = document.createElement("div");
+    div.className = "thumb" + (i === 0 ? " active" : "");
+    div.onclick = () => switchImg(div, i);
+
+    const img = document.createElement("img");
+    img.src = w.thumb;
+    img.alt = w.alt;
+    img.onerror = function(){ this.src = fallbacksTh[i]; this.onerror = null; };
+
+    div.appendChild(img);
+    thumbsEl.appendChild(div);
+  });
+
+  /* ── set main image ── */
+  const mainImg = document.getElementById("mainImg");
+  mainImg.src = watches[0].full;
+  mainImg.onerror = function(){ this.src = fallbacks[0]; this.onerror = null; };
+
+  /* ── switch image ── */
+  function switchImg(thumb, idx) {
+    mainImg.classList.add("fade");
+    setTimeout(() => {
+      mainImg.src = watches[idx].full;
+      mainImg.onerror = function(){ this.src = fallbacks[idx]; this.onerror = null; };
+      mainImg.alt = watches[idx].alt;
+      mainImg.classList.remove("fade");
+    }, 220);
+    document.querySelectorAll(".thumb").forEach(t => t.classList.remove("active"));
+    thumb.classList.add("active");
+  }
+
+  /* ── quantity ── */
+  function changeQty(d) {
+    const el = document.getElementById("qty");
+    const v = parseInt(el.value) + d;
+    if (v >= 1 && v <= 99) el.value = v;
+  }
+
+  /* ── add to bag ── */
+  function addToBag() {
+    const q = document.getElementById("qty").value;
+    showToast("✅  " + q + "× Elegant Luxury Watch added to bag!");
+  }
+
+  /* ── toast ── */
+  let tt;
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(tt);
+    tt = setTimeout(() => t.classList.remove("show"), 3200);
+  }
+
+  /* ── hamburger ── */
+  document.getElementById("menuBtn").addEventListener("click", () => {
+    document.getElementById("mobileMenu").classList.toggle("open");
+  });
+</script>
+
+</body>
+</html>
